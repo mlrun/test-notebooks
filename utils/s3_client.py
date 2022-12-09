@@ -19,7 +19,7 @@ else:
 
 class S3Client:
     """
-    An easy to use S# client for uploading, downloading and deleting single files or directories.
+    An easy to use S3 client for uploading, downloading and deleting single files or directories.
 
     S3 do not have actual directories. Each file's name is a key, but if the key has a seperator '/' in it the UI in S3
     shows it as a directory. This client handles these kind of directories.
