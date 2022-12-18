@@ -6,14 +6,17 @@ import warnings
 import boto3
 
 # Import tqdm progressbar according to the running environment (jupyter or cli):
-get_ipython_function = globals().get("get_ipython", None)
-if get_ipython_function:
-    shell = get_ipython_function().__class__.__name__
-    if shell == "ZMQInteractiveShell":
+try:
+    from IPython import get_ipython
+
+    SHELL = get_ipython().__class__.__name__
+    if SHELL == "ZMQInteractiveShell":
         from tqdm.notebook import tqdm
     else:
+        SHELL = None
         from tqdm import tqdm
-else:
+except ModuleNotFoundError:
+    SHELL = None
     from tqdm import tqdm
 
 
@@ -296,7 +299,7 @@ class S3Client:
                 s3_path=os.path.join(s3_path, os.path.relpath(file, local_path)),
                 bucket=bucket,
                 replace=replace,
-                verbose=verbose,
+                verbose=SHELL is not None and verbose,
             )
 
     @staticmethod
@@ -349,7 +352,7 @@ class S3Client:
                 s3_path=file,
                 bucket=bucket,
                 replace=replace,
-                verbose=verbose,
+                verbose=SHELL is not None and verbose,
             )
 
     @staticmethod
@@ -382,5 +385,5 @@ class S3Client:
                 s3_client=s3_client,
                 s3_path=file,
                 bucket=bucket,
-                verbose=verbose,
+                verbose=SHELL is not None and verbose,
             )
