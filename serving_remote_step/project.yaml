@@ -1,0 +1,7 @@
+metadata:
+  name: test-remote-step-headers
+kind: project
+spec:
+  source: ''
+  desired_state: online
+  conda: ''
