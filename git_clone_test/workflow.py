@@ -26,4 +26,4 @@ def kfpipeline():
 
 
     # Deploy the model
-    deploy = funcs["serving"].deploy_step(models=[{'key':'cancer-classifier','model_path':train.outputs["model"], 'class_name':'mlrun.frameworks.sklearn.SklearnModelServer'}])
+    deploy = funcs["serving"].deploy_step(models=[{'key':'cancer-classifier','model_path':train.outputs["model"], 'class_name':'mlrun.frameworks.sklearn.SKLearnModelServer'}])
